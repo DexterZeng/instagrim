@@ -8,7 +8,8 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Set;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
@@ -50,9 +52,12 @@ public class Login extends HttpServlet {
         
         String username=request.getParameter("username");
         String password=request.getParameter("password");
-        
+
         User us=new User();
         us.setCluster(cluster);
+        String first_name=us.First_name(username);
+        String last_name =us.Last_name(username);
+        Set<String> email=us.Email(username);
         boolean isValid=us.IsValidUser(username, password);
         HttpSession session=request.getSession();
         System.out.println("Session in servlet "+session);
@@ -60,15 +65,17 @@ public class Login extends HttpServlet {
             LoggedIn lg= new LoggedIn();
             lg.setLogedin();
             lg.setUsername(username);
-            //request.setAttribute("LoggedIn", lg);
+            lg.setfirst_name(first_name);
+            lg.setlast_name(last_name);
+            lg.setemail(email);           
             
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("TransToInd.jsp");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Instagrim/login.jsp");
+            response.sendRedirect("/instagrim/login.jsp");
         }
         
     }

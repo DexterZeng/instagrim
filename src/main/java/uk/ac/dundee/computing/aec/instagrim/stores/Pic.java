@@ -8,10 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 import com.datastax.driver.core.utils.Bytes;
 import java.nio.ByteBuffer;
 
-/**
- *
- * @author Administrator
- */
 public class Pic {
 
     private ByteBuffer bImage = null;
@@ -22,11 +18,11 @@ public class Pic {
     public void Pic() {
 
     }
-    public void setUUID(java.util.UUID UUID){
-        this.UUID =UUID;
+    public void setUUID(java.util.UUID id){
+        this.UUID =id;
     }
     public String getSUUID(){
-        return UUID.toString();
+        return this.UUID.toString();
     }
     public void setPic(ByteBuffer bImage, int length,String type) {
         this.bImage = bImage;

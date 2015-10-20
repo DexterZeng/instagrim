@@ -36,6 +36,33 @@ public final class Keyspaces {
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+            String CreatePhotoTable = "CREATE TABLE if not exists instagrim.Photo ("
+                    + " user varchar,"
+                    + " photoid uuid, "
+                    + " interaction_time timestamp,"
+                    + " title varchar,"
+                    + " image blob,"
+                    + " thumb blob,"
+                    + " processed blob,"
+                    + " imagelength int,"
+                    + " thumblength int,"
+                    + "  processedlength int,"
+                    + " type  varchar,"
+                    + " name  varchar,"
+                    + " PRIMARY KEY (photoid)"
+                    + ")";
+            String Createuserphotolist = "CREATE TABLE if not exists instagrim.userphotolist (\n"
+                    + "photoid uuid,\n"
+                    + "user varchar,\n"
+                    + "pic_added timestamp,\n"
+                    + "PRIMARY KEY (user,pic_added)\n"
+                    + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+            String CreateUserCommentTable = "CREATE TABLE if not exists instagrim.UserComment ("
+                    + " picid uuid, "
+                    + " comment text,"
+                    + " Com_time timestamp,"
+                    + " PRIMARY KEY (picid,Com_time)"
+                    + ")";
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
@@ -79,6 +106,27 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create user pic list table " + et);
             }
+            System.out.println("" + CreatePhotoTable);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreatePhotoTable);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create tweet table " + et);
+            }
+            System.out.println("" + Createuserphotolist);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(Createuserphotolist);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create user photo list table " + et);
+            }
+            System.out.println("" + CreateUserCommentTable);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateUserCommentTable);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create tweet table " + et);
+            }            
             System.out.println("" + CreateAddressType);
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreateAddressType);

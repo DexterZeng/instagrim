@@ -86,6 +86,41 @@ public class PicModel {
             System.out.println("Error --> " + ex);
         }
     }
+    public void insertPhoto(byte[] b, String type, String name, String user) {
+        try {
+            Convertors convertor = new Convertors();
+
+            String types[]=Convertors.SplitFiletype(type);
+            ByteBuffer buffer = ByteBuffer.wrap(b);
+            int length = b.length;
+            java.util.UUID photoid = convertor.getTimeUUID();
+            
+            Boolean success = (new File("/var/tmp/instagrim/")).mkdirs();
+            FileOutputStream output = new FileOutputStream(new File("/var/tmp/instagrim/" + photoid));
+
+            output.write(b);
+            byte []  thumbb = picresize(photoid.toString(),types[1]);
+            int thumblength= thumbb.length;
+            ByteBuffer thumbbuf=ByteBuffer.wrap(thumbb);
+            byte[] processedb = picdecolour(photoid.toString(),types[1]);
+            ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
+            int processedlength=processedb.length;
+            Session session = cluster.connect("instagrim");
+
+            PreparedStatement psInsertPhoto = session.prepare("insert into photo ( photoid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psInsertPhotoToUser = session.prepare("insert into userphotolist ( photoid, user, pic_added) values(?,?,?)");
+            BoundStatement bsInsertPhoto = new BoundStatement(psInsertPhoto);
+            BoundStatement bsInsertPhotoToUser = new BoundStatement(psInsertPhotoToUser);
+
+            Date DateAdded = new Date();
+            session.execute(bsInsertPhoto.bind(photoid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
+            session.execute(bsInsertPhotoToUser.bind(photoid, user, DateAdded));
+            session.close();
+
+        } catch (IOException ex) {
+            System.out.println("Error --> " + ex);
+        }
+    }
 
     public byte[] picresize(String picid,String type) {
         try {
@@ -156,6 +191,30 @@ public class PicModel {
         }
         return Pics;
     }
+    public java.util.LinkedList<Pic> getPhotoForUser(String User) {
+        java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select photoid from userphotolist where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        User));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return null;
+        } else {
+            for (Row row : rs) {
+                Pic pic = new Pic();
+                java.util.UUID UUID = row.getUUID("photoid");
+                System.out.println("UUID" + UUID.toString());
+                pic.setUUID(UUID);
+                Pics.add(pic);
+
+            }
+        }
+        return Pics;
+    }
 
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
@@ -212,5 +271,60 @@ public class PicModel {
         return p;
 
     }
+    public Pic getPhoto(int image_type, java.util.UUID photoid) {
+    Session session = cluster.connect("instagrim");
+    ByteBuffer bImage = null;
+    String type = null;
+    int length = 0;
+    try {
+        Convertors convertor = new Convertors();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+     
+        if (image_type == Convertors.DISPLAY_IMAGE) {
+            
+            ps = session.prepare("select image,imagelength,type from photo where photoid =?");
+        } else if (image_type == Convertors.DISPLAY_THUMB) {
+            ps = session.prepare("select thumb,imagelength,thumblength,type from photo where photoid =?");
+        } else if (image_type == Convertors.DISPLAY_PROCESSED) {
+            ps = session.prepare("select processed,processedlength,type from photo where photoid =?");
+        }
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        photoid));
+
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return null;
+        } else {
+            for (Row row : rs) {
+                if (image_type == Convertors.DISPLAY_IMAGE) {
+                    bImage = row.getBytes("image");
+                    length = row.getInt("imagelength");
+                } else if (image_type == Convertors.DISPLAY_THUMB) {
+                    bImage = row.getBytes("thumb");
+                    length = row.getInt("thumblength");
+            
+                } else if (image_type == Convertors.DISPLAY_PROCESSED) {
+                    bImage = row.getBytes("processed");
+                    length = row.getInt("processedlength");
+                }
+                
+                type = row.getString("type");
+
+            }
+        }
+    } catch (Exception et) {
+        System.out.println("Can't get Pic" + et);
+        return null;
+    }
+    session.close();
+    Pic p = new Pic();
+    p.setPic(bImage, length, type);
+
+    return p;
+
+}
 
 }

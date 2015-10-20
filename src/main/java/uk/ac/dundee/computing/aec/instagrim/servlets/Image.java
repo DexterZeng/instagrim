@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.util.Streams;
+
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
@@ -139,7 +136,7 @@ public class Image extends HttpServlet {
             String username="majed";
             if (lg.getlogedin()){
                 username=lg.getUsername();
-            }
+            }  
             if (i > 0) {
                 byte[] b = new byte[i + 1];
                 is.read(b);
@@ -160,9 +157,9 @@ public class Image extends HttpServlet {
 
         PrintWriter out = null;
         out = new PrintWriter(response.getOutputStream());
-        out.println("<h1>You have a na error in your input</h1>");
+        out.println("<h1>You have an a error in your input</h1>");
         out.println("<h2>" + mess + "</h2>");
         out.close();
         return;
     }
-}
+} 
