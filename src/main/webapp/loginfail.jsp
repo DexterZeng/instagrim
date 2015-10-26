@@ -1,7 +1,7 @@
 <%-- 
-    Document   : register.jsp
-    Created on : Sep 28, 2014, 6:29:51 PM
-    Author     : Administrator
+    Document   : loginfail
+    Created on : Oct 26, 2015, 6:04:42 PM
+    Author     : lenovo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,12 +13,12 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <style>
             p{
-                color:orange;
-                font-style:oblique;
-                font-weight:normal;
-                font-size:80%;
+                color:tomato;
+                font-style: italic;
+                font-variant: small-caps;
             }
         </style>
+
     </head>
     <body>
         <header>
@@ -26,30 +26,27 @@
         <h2>Your world in Black and White</h2>
         </header>
         <nav>
-            <ul>               
+            <ul>                
                 <li><a href="index.jsp">Home</a></li>
             </ul>
         </nav>
        
         <article>
-            <h3>Register as user</h3>
-            <form method="POST"  action="Register">
-                <p>The User Name and Password are necessary,<br>
-                   The others are optional
-                </p>
+            <h3>Login</h3>
+            <p>Sorry, the password is not corresponding to the username
+                <br> Or you have not registered as a user
+            </p>
+            <p>Please Try Again :)</p>
+            <form method="POST"  action="Login">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
                     <li>Password <input type="password" name="password"></li>
-                    <li>first_name <input type="text" name="first_name"></li>
-                    <li>last_name <input type="text" name="last_name"></li>
-                    <li>Email <input type="email" name="email"></li>
-                    
-					
-				
+
                 </ul>
                 <br/>
-                <input type="submit" value="Register">
+                <input type="submit" value="Login"> 
             </form>
+
         </article>
     </body>
 </html>

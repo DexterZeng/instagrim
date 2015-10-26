@@ -15,7 +15,7 @@
     </head>
     <body>
         <header>
-        <h1>instagrim ! </h1>
+        <h1>Instagrim ! </h1>
         <h2>Your world in Black and White</h2>
         </header>
         <nav>

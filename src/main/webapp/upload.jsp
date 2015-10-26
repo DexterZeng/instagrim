@@ -5,20 +5,23 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
+        <title>instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
-        <h1>InstaGrim ! </h1>
+        <h1>instagrim ! </h1>
         <h2>Your world in Black and White</h2>
         <nav>
             <ul>
-                <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li class="nav"><a href="SamplePics.jsp">Sample Images</a></li>
+                <li class="nav"><a href="TransToInd.jsp">Home</a></li>
+                <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+                <li class="nav"><a href="/instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
             </ul>
         </nav>
  
@@ -30,12 +33,9 @@
                 <br/>
                 <input type="submit" value="Press"> to upload the file!
             </form>
-
+           
+            
+            
         </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
-        </footer>
     </body>
 </html>

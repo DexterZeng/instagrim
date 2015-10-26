@@ -12,5 +12,58 @@ and open the template in the editor.
 nav {
     text-align: left;
     border: 2px;
-    float: right;
+    float: left;
 }
+ul{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+a:link,a:visited
+{
+display:block;
+font-weight:bold;
+color:white;
+background-color:#bebebe;
+width:120px;
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+}
+a:hover,a:active
+{
+background-color:black;
+}
+
+h2 {background-color:black;
+    color: white;
+    font-variant: small-caps;
+    display:block;
+    font-weight:bold;
+    width:400px;
+    text-align:center;
+    padding:4px;
+    text-decoration:none;  
+    }
+h1 {font-size: 300%;
+    font-style: italic;
+    font-variant: small-caps;}
+
+article{
+    font-style: italic;
+    font-weight: bold;
+    position: relative;
+    top: 75px;
+    left:300px;
+    text-align: left;
+    float: left;
+}
+body
+{
+background-image: url(http://www.technosamrat.com/wp-content/uploads/2012/05/Black-and-White-Wallpaper-Picture.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-position: 0px -50px;
+} 
