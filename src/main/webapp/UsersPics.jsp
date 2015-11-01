@@ -28,6 +28,9 @@
             h1 {font-size: 300%;
                     font-style: italic;
                     font-variant: small-caps;}
+            p{
+                color:darksalmon;
+            }
             body
                 {
                     background-image: url(http://www.technosamrat.com/wp-content/uploads/2012/05/Black-and-White-Wallpaper-Picture.jpg);
@@ -91,15 +94,24 @@
         
         <nav>
             <ul>
-                <li class="nav"><a href="/instagrim/upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/instagrim/SamplePics.jsp">Sample Images</a></li>
-                <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
+                <% 
+                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                    if(!lg.getvisiting()) {%>
+                <li class="nav"><a href="/instagrimWZ/upload.jsp">Upload</a></li>
+                <li class="nav"><a href="/instagrimWZ/SamplePics.jsp">Sample Images</a></li>
+                <li class="nav"><a href="/instagrimWZ/TransToInd.jsp">Home</a></li>
+                <%} else{                   
+                        %>
+                <li class="nav"><a href="/instagrimWZ/TransToInd.jsp">Home</a></li>
+                   <% } %>
             </ul>
         </nav>
  
         <article>
-            <h1>Your Pics</h1>
+            <h1>PICS</h1>
         <%
+                      
+            if(!lg.getvisiting()){
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
             if (lsPics == null) {
         %>
@@ -112,15 +124,36 @@
             while (iterator.hasNext()) {     
           
                Pic p = (Pic) iterator.next();
+            %>
+            <a href="/instagrimWZ/Image/<%=p.getSUUID()%>" ><img src="/instagrimWZ/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <a id="Word" href="/instagrimWZ/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
+             <a id="Word" href="/instagrimWZ/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
+           <%
+             }}}
+            else{
+            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+            if (lsPics == null) {
+        %>
+        <p>The username does not exist or <br>
+           The user has not uploaded any picture</p>
+        <%
+        } else {
+            Iterator<Pic> iterator;
+            iterator = lsPics.iterator();
+           
+            while (iterator.hasNext()) {     
+          
+               Pic p = (Pic) iterator.next();
 
         %>
-        <a href="/instagrim/Image/<%=p.getSUUID()%>" ><img src="/instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
-        <a id="Word" href="/instagrim/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
-        <a id="Word" href="/instagrim/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
+        <a href="/instagrimWZ/Image/<%=p.getSUUID()%>" ><img src="/instagrimWZ/Thumb/<%=p.getSUUID()%>"></a><br/>
+        <a id="Word" href="/instagrimWZ/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
+        <a id="Word" href="/instagrimWZ/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
         
 		
                                                 
             <% 
+            }
             }
             }
         %>
