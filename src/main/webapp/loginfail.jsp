@@ -27,7 +27,7 @@
         </header>
         <nav>
             <ul>                
-                <li><a href="index.jsp">Home</a></li>
+                <li><a href="index2.jsp">Home</a></li>
             </ul>
         </nav>
        

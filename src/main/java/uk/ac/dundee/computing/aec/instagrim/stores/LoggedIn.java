@@ -9,6 +9,8 @@ import java.util.Set;
 
 public class LoggedIn {
     boolean logedin=false;
+    boolean visiting=false;
+    String OtherUsername=null;
     String Username=null;
     String first_name=null;
     String last_name=null;
@@ -24,11 +26,23 @@ public class LoggedIn {
     public String getUsername(){
         return Username;
     }
+    public void setOtherUsername(String name){
+        this.OtherUsername=name;
+    }
+    public String getOtherUsername(){
+        return OtherUsername;
+    }
     public void setLogedin(){
         logedin=true;
     }
     public void setLogedout(){
         logedin=false;
+    }
+     public void setvisiting(){
+        visiting=true;
+    }
+    public void setvisitingout(){
+        visiting=false;
     }
     public void setfirst_name(String name){
         this.first_name=name;
@@ -54,5 +68,8 @@ public class LoggedIn {
     }
     public boolean getlogedin(){
         return logedin;
+    }
+    public boolean getvisiting(){
+        return visiting;
     }
 }

@@ -96,6 +96,7 @@ public class Comment extends HttpServlet {
         com.setCluster(cluster);
         
         com.insertComment(comment , pid);
+        
         RequestDispatcher rd = request.getRequestDispatcher("/TransToUP.jsp");
         rd.forward(request, response);
         }

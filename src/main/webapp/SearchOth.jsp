@@ -1,7 +1,7 @@
 <%-- 
-    Document   : login.jsp
-    Created on : Sep 28, 2014, 12:04:14 PM
-    Author     : Administrator
+    Document   : SearchOth
+    Created on : Nov 2, 2015, 9:38:25 PM
+    Author     : lenovo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,20 +20,18 @@
         </header>
         <nav>
             <ul>                
-                <li><a href="index2.jsp">Home</a></li>
+                <li><a href="TransToInd.jsp">Home</a></li>
             </ul>
         </nav>
        
         <article>
-            <h3>Login</h3>
-            <form method="POST"  action="Login">
+            <h3>Search For Other Users</h3>
+            <form method="POST"  action="OtherPic">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-
                 </ul>
                 <br/>
-                <input type="submit" value="Login"> 
+                <input type="submit" value="Search"> 
             </form>
 
         </article>

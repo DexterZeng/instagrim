@@ -28,17 +28,17 @@
                     <%
 
                             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                            if (lg != null) {
-
-
-                                if (lg.getlogedin()) {
+                            if(!lg.getvisiting()){
                         %>
                     <li class="nav"><a href="/instagrim/Images/<%=lg.getUsername()%>">Back To Pic</a></li>
                     <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
+                
+                    <%}else{%>
+                    <li class="nav"><a href="/instagrim/Images/<%=lg.getOtherUsername()%>">Back To Pic</a></li>
+                    <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
                 </ul>
         </nav>
-                    <%}}%>
-
+                    <%}%>
             <article>
                 <h3></h3>
                 <form method="POST"  action="Comment">

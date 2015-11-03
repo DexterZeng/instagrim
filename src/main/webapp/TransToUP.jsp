@@ -10,8 +10,13 @@
 <html>
     <head>
         <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
-        <% LoggedIn lg=(LoggedIn) session.getAttribute("LoggedIn");%>
+        <% LoggedIn lg=(LoggedIn) session.getAttribute("LoggedIn");
+           if(!lg.getvisiting()){
+        %>
         <meta http-equiv="refresh" content="0;url=/instagrim/Images/<%=lg.getUsername()%>" >
+        <%}else{%>
+        <meta http-equiv="refresh" content="0;url=/instagrim/Images/<%=lg.getOtherUsername()%>" >
+        <%}%>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Instagrim</title>
     </head>

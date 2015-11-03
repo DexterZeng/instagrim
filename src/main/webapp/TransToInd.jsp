@@ -9,6 +9,7 @@
     <head>
         <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
         <% LoggedIn lg=(LoggedIn) session.getAttribute("LoggedIn");
+           lg.setvisitingout();
         %>
         <meta http-equiv="refresh" content="0;url=/instagrim/Pictures/<%=lg.getUsername()%>" >
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

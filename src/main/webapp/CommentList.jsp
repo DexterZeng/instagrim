@@ -28,6 +28,7 @@
                 padding:4px;
                 text-decoration:none;  
             }
+            
         </style>
     </head>
 <body>
@@ -41,19 +42,21 @@
                 <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                           
-                            
-                            if (lg.getlogedin()) {
+                        if (!lg.getvisiting()) {
                     %>
                 <li class="nav"><a href="/instagrim/Images/<%=lg.getUsername()%>">Back To Pic</a></li>
+                <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
+                <%}else{%>
+                <li class="nav"><a href="/instagrim/Images/<%=lg.getOtherUsername()%>">Back To Pic</a></li>
                 <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
             </ul>
     </nav>
     
-    <article>
-           <%}}
-            java.util.LinkedList<Com> com = (java.util.LinkedList<Com>) request.getAttribute("Comment");
+    
+           <%}%>
+        <article>
+            
+          <%  java.util.LinkedList<Com> com = (java.util.LinkedList<Com>) request.getAttribute("Comment");
             if (com == null) {
         %>
         <p>No Comments found</p>

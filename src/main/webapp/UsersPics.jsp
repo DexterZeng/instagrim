@@ -97,12 +97,12 @@
                 <% 
                     LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                     if(!lg.getvisiting()) {%>
-                <li class="nav"><a href="/instagrimWZ/upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/instagrimWZ/SamplePics.jsp">Sample Images</a></li>
-                <li class="nav"><a href="/instagrimWZ/TransToInd.jsp">Home</a></li>
+                <li class="nav"><a href="/instagrim/upload.jsp">Upload</a></li>
+                <li class="nav"><a href="/instagrim/SamplePics.jsp">Sample Images</a></li>
+                <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
                 <%} else{                   
                         %>
-                <li class="nav"><a href="/instagrimWZ/TransToInd.jsp">Home</a></li>
+                <li class="nav"><a href="/instagrim/TransToInd.jsp">Home</a></li>
                    <% } %>
             </ul>
         </nav>
@@ -125,9 +125,10 @@
           
                Pic p = (Pic) iterator.next();
             %>
-            <a href="/instagrimWZ/Image/<%=p.getSUUID()%>" ><img src="/instagrimWZ/Thumb/<%=p.getSUUID()%>"></a><br/>
-            <a id="Word" href="/instagrimWZ/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
-             <a id="Word" href="/instagrimWZ/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
+            <a href="/instagrim/Image/<%=p.getSUUID()%>" ><img src="/instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <a id="Word" href="/instagrim/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
+             <a id="Word" href="/instagrim/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
+             <a id="Word" href="/instagrim/Delete?picid=<%=p.getSUUID()%>">Delete</a><br/>
            <%
              }}}
             else{
@@ -146,9 +147,9 @@
                Pic p = (Pic) iterator.next();
 
         %>
-        <a href="/instagrimWZ/Image/<%=p.getSUUID()%>" ><img src="/instagrimWZ/Thumb/<%=p.getSUUID()%>"></a><br/>
-        <a id="Word" href="/instagrimWZ/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
-        <a id="Word" href="/instagrimWZ/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
+        <a href="/instagrim/Image/<%=p.getSUUID()%>" ><img src="/instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+        <a id="Word" href="/instagrim/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
+        <a id="Word" href="/instagrim/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
         
 		
                                                 

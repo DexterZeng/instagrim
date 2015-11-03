@@ -75,7 +75,7 @@ public class Login extends HttpServlet {
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/instagrim/login.jsp");
+            response.sendRedirect("/instagrim/loginfail.jsp");
         }
         
     }
