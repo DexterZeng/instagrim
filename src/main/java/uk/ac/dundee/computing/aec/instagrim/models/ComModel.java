@@ -33,8 +33,7 @@ public void insertComment(String comment, java.util.UUID picid  ) {
 	
     	try
     	{
-    			Date Com_time = new Date();
-    			
+    	        Date Com_time = new Date();	
     	        Session session = cluster.connect("instagrim");
                 PreparedStatement ps = session.prepare("insert into UserComment (picid, comment,Com_time) Values(?,?,?)");
     	        
@@ -42,7 +41,6 @@ public void insertComment(String comment, java.util.UUID picid  ) {
     	        session.execute( 
     	                boundStatement.bind( 
     	                        picid, comment, Com_time));
-    	        
     	        session.close();
     	}catch (Exception ex) {
             System.out.println("Error --> " + ex);
@@ -52,10 +50,10 @@ public void insertComment(String comment, java.util.UUID picid  ) {
  
 
 
-public java.util.LinkedList<Com> UserComment(java.util.UUID pid){//////////have been changed
+public java.util.LinkedList<Com> UserComment(java.util.UUID pid){
     
     java.util.LinkedList<Com> Coms = new java.util.LinkedList<>();
-	Session session = cluster.connect("instagrim");
+    Session session = cluster.connect("instagrim");
     PreparedStatement ps = session.prepare("select comment from UserComment where picid = ?");
     ResultSet rs = null;
     BoundStatement boundStatement = new BoundStatement(ps);
@@ -74,7 +72,6 @@ public java.util.LinkedList<Com> UserComment(java.util.UUID pid){//////////have 
              
                           
         }
-        //System.out.println("yes");
         session.close();
         return Coms;
         }

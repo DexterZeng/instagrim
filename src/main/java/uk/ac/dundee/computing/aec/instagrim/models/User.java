@@ -105,6 +105,23 @@ public class User {
     return false;  
     }
     
+    public boolean checkUsername(String username)
+    {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        if (rs.isExhausted()) {
+            System.out.println("Username is available");
+            return false;
+    }
+        else
+            return true;
+    }
+    
     public void insertProfile(byte[] b,  String name, String user){
     	ByteBuffer buffer = ByteBuffer.wrap(b);
         int length = b.length;

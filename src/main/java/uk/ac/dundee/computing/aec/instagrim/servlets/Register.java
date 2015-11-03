@@ -51,9 +51,14 @@ public class Register extends HttpServlet {
         email.add(inputemail);
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password, first_name, last_name, email);
         
-	response.sendRedirect("index2.jsp");
+        if(!us.checkUsername(username)){
+            us.RegisterUser(username, password, first_name, last_name, email);
+            response.sendRedirect("index2.jsp");
+        }else{
+            response.sendRedirect("registerfail.jsp");
+        }
+        
         
     }  
     @Override
