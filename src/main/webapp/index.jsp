@@ -16,8 +16,11 @@
         <style>
             body
             {
-            background-image: url(https://newevolutiondesigns.com/images/freebies/colorful-background-30.jpg);
-            background-repeat: no-repeat;
+                background-image: url(https://newevolutiondesigns.com/images/freebies/colorful-background-30.jpg);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-position: 0px -50px;
+                background-size:100%;
             } 
             p{
                  font-style: italic;

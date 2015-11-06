@@ -75,6 +75,7 @@ public class OtherPic extends HttpServlet {
             String username=request.getParameter("username");
             DisplayImageList(username, request, response);
             lg.setOtherUsername(username);
+            System.out.println("LLLLLLLLLL " + lg.getOtherUsername());
         
     }
      private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

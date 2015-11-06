@@ -93,6 +93,7 @@
                 <li><a href="/instagrim/LogOut">LogOut</a></li>
 	        <li><a href="/instagrim/UserInfo.jsp">Your Info</a></li>
                 <li><a href="/instagrim/SearchOth.jsp">Other Users</a></li>
+                <li><a href="/instagrim/ShowFriends">Your friends</a></li>
                  
                 
                 

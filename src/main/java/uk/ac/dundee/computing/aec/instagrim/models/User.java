@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.instagrim.stores.Com;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
@@ -221,6 +223,52 @@ public class User {
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
-
+       
+       public boolean Friend(String usernamef,String username){
+           Set<String> friend=new HashSet<String>();
+           friend.add(usernamef);
+           Session session = cluster.connect("instagrim");
+           PreparedStatement ps = session.prepare("UPDATE userprofiles SET friend = friend + ? WHERE login=?");
+           ResultSet rs = null;
+           BoundStatement boundStatement = new BoundStatement(ps);
+           rs = session.execute( // this is where the query is executed
+                 boundStatement.bind( // here you are binding the 'boundStatement'
+                        friend,username));
+           return true;
+       }
+       
+       public boolean UnFriend(String usernamef,String username){
+           Set<String> friend=new HashSet<String>();
+           friend.add(usernamef);
+           Session session = cluster.connect("instagrim");
+           PreparedStatement ps = session.prepare("UPDATE userprofiles SET friend = friend - ? WHERE login=?");
+           ResultSet rs = null;
+           BoundStatement boundStatement = new BoundStatement(ps);
+           rs = session.execute( // this is where the query is executed
+                 boundStatement.bind( // here you are binding the 'boundStatement'
+                        friend,username));
+           return true;
+       }
+       
+    public Set<String> ShowFriends(String username){
+            Set<String> friends = null;
+          //  java.util.LinkedList<String> friends = new java.util.LinkedList<>();
+            Session session = cluster.connect("instagrim");
+            PreparedStatement ps = session.prepare("select friend from userprofiles where login = ?");
+            ResultSet rs = null;
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                            username));
+            if (rs.isExhausted()) {
+                System.out.println("No friends found");
+                return null;
+            } else {
+                for (Row row : rs) {
+                         friends=row.getSet("friend", String.class);
+                }
+                return friends;
+                }
+    }
     
 }
