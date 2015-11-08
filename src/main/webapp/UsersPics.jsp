@@ -130,7 +130,6 @@
             <a id="Word" href="/instagrim/Comment?picid=<%=p.getSUUID()%>">Comment List</a><br/>
              <a id="Word" href="/instagrim/Comment.jsp?picid=<%=p.getSUUID()%>">Add Comment</a><br>
              <a id="Word" href="/instagrim/Delete?picid=<%=p.getSUUID()%>">Delete</a><br/>
-             <a href="/instagrim/Friend? friend=<%=lg.getOtherUsername()%>">Add As Friend</a>
            <%
              }}}
             else{

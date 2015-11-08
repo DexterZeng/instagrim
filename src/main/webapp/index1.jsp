@@ -112,7 +112,7 @@
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics1");
             if (lsPics == null) {
          %>
-         <p>Haven't uploaded your portrait yet! </p>
+         <p>Haven't uploaded your profile picture yet! </p>
          <p><a href="/instagrim/Profile.jsp?id='upload'">Upload</a></p>
         
         <%
